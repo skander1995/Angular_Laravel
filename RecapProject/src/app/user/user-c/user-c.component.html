@@ -1,0 +1,25 @@
+
+<a routerLink="create">Create Post</a>  
+
+
+<router-outlet></router-outlet>
+<table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+        
+       
+        <tr *ngFor="let post of listusrs">    
+                <td> {{post.name}}</td>
+                <td> {{post.email}}</td>
+                
+              </tr>
+     
+     
+    </tbody>
+  </table>

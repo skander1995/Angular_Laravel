@@ -1,0 +1,28 @@
+
+<a routerLink="create">Create Post</a>  
+
+
+<router-outlet></router-outlet>
+<table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Body</th>
+        <th>state</th>
+        <th>approve</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+       
+        <tr *ngFor="let post of listposts">    
+                <td> {{post.title}}</td>
+                <td> {{post.body}}</td>
+                <td> {{post.is_approved}}</td>
+                <td *ngIf="!post.is_approved "> <a class="btn btn-theme-colored btn-sm pull-left flip"  (click) ="approve(post.id)">approve</a></td>
+                <td *ngIf="post.is_approved"> <a class="btn btn-theme-colored btn-sm pull-left flip"  (click) ="disapprove(post.id)">disapprove</a></td>
+              </tr>
+     
+     
+    </tbody>
+  </table>

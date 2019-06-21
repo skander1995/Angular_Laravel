@@ -1,0 +1,22 @@
+<a routerLink="create">Create Post</a>  
+
+<router-outlet></router-outlet>
+<table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Body</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        
+       
+        <tr *ngFor="let post of lisarticles">    
+                <td> {{post.title}}</td>
+                <td> {{post.description}}</td>
+                </tr>
+     
+     
+    </tbody>
+  </table>
