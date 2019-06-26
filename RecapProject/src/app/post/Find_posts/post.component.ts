@@ -20,21 +20,10 @@ list:string;
   }
   getposts()
   {
-    //console.log(this.service.getposts());
     this.service.getposts().subscribe(data => {
-      //console.log(data),
-      this.listposts=data;
-
-      console.log("list ");
-      console.log(this.listposts);
-      //this.list=JSON.stringify(this.listposts);
+      this.listposts=data; 
     });
-    
-  /**
-   *  this.service.getposts().pipe(map(data => {this.listposts=data}));
-   console.log(this.listposts);
-   */
-
+  
   }
 
   approve(id:number)

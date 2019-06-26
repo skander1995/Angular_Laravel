@@ -17,7 +17,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 //-------------posts Curd----
 Route::get('posts/create', 'PostsController@create')->name('posts.create');
 Route::middleware('api', 'auth:api')->post('posts/store', 'PostsController@store')->name('posts.store');

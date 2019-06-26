@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { PostComponent } from './post/Find_posts/post.component';
@@ -13,22 +12,12 @@ import { ArticlesComponent } from './articles/articles/articles.component';
 import { UserCComponent } from './user/user-c/user-c.component';
 import { LoginComponent } from './user/login/login.component';
 
-const routes: Routes = [
-  
-    { path: 'posts', component: PostComponent },
-    { path: 'posts/create', component: CreatePostComponent },
-    { path: 'articles', component: ArticlesComponent },
-    { path: 'articles/create', component: CreateArticleComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'users', component: UserCComponent },
-    
-    /*
-    path: 'posts', component: PostComponent, children: [
-      //{ path: 'liste', component: ListAnnoncesComponent },
-     // { path: 'estimation', component: EstimationCoutComponent }
-    ]*/
-  
-]
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthService } from './auth/services/auth.service';
+
+
+
 
 @NgModule({
   declarations: [
@@ -38,13 +27,18 @@ const routes: Routes = [
     CreateArticleComponent,
     ArticlesComponent,
     UserCComponent,
-    LoginComponent
+    LoginComponent,
+    MainNavComponent,
+    
   ],
   imports: [
-    BrowserModule, FormsModule, RouterModule.forRoot(routes),
-    HttpClientModule, ReactiveFormsModule
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

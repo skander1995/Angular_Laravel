@@ -1,8 +1,3 @@
-
-<a routerLink="create">Create Post</a>  
-
-
-<router-outlet></router-outlet>
 <table class="table table-condensed">
     <thead>
       <tr>
@@ -19,10 +14,38 @@
                 <td> {{post.title}}</td>
                 <td> {{post.body}}</td>
                 <td> {{post.is_approved}}</td>
-                <td *ngIf="!post.is_approved "> <a class="btn btn-theme-colored btn-sm pull-left flip"  (click) ="approve(post.id)">approve</a></td>
-                <td *ngIf="post.is_approved"> <a class="btn btn-theme-colored btn-sm pull-left flip"  (click) ="disapprove(post.id)">disapprove</a></td>
+                <td *ngIf="!post.is_approved "> <a class="btn btn btn-primary" href="#" (click) ="approve(post.id)">approve</a></td>
+                <td *ngIf="post.is_approved"> <a class="btn btn btn-primary" href="#" (click) ="disapprove(post.id)">disapprove</a></td>
               </tr>
      
      
     </tbody>
   </table>
+  <div class="container">
+
+    <!-- Page Heading -->
+    <h1 class="my-4">Page Heading
+      <small>Secondary Text</small>
+    </h1>
+
+    <!-- Project One -->
+    <div *ngFor="let post of listposts">
+    <div class="row">
+      <div class="col-md-7">
+        <a href="#">
+          <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+        </a>
+      </div>
+      <div class="col-md-5">
+        <h3>{{post.title}}</h3>
+        <p>{{post.body}}</p>
+        <a class="btn btn-primary" href="#">View Project</a>
+      </div>
+      
+    </div>
+    <!-- /.row -->
+    <hr>
+  </div>
+
+  </div>
+  <!-- /.container -->

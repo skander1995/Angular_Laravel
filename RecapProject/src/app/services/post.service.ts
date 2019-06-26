@@ -4,6 +4,7 @@ import { Post } from '../Models/Post';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserService } from './user.service';
+import { AuthService } from '../auth/services/auth.service';
 
 
 
@@ -12,19 +13,20 @@ import { UserService } from './user.service';
 })
 export class PostService {
 
-  constructor(private http : HttpClient,private userservice:UserService) { }
+  constructor(private http : HttpClient,private userservice:AuthService) { }
   //--with auth
   getposts():Observable<Post[]>{
     var url="/api/posts" ;
-    console.log(url)
+   // console.log(url)
     let headers = new HttpHeaders();
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Access-Control-Allow-Origin': '*',
-        'Authorization': 'Bearer '+ this.userservice.sendToken()
+        'Authorization': 'Bearer '+ this.userservice.getJwtToken()
       })
     };
+    //console.log(this.userservice.getJwtToken());
     return this.http.get<Post[]>(url,httpOptions);
     ;
   }

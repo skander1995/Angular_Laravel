@@ -59,5 +59,23 @@ class PassportAuthController extends Controller
         return response()->json($post, 200);
     }
 
-
+    public function userinfo(Request $request, $id)
+    {
+        $post = User::find($id);
+        $post->status = "1";
+        $post->save();    
+        return response()->json($post, 200);
+    }
+	
+    public function logout(Request $request) {
+        $value = $request->bearerToken();
+        if ($value) {
+     
+            $id = (new Parser())->parse($value)->getHeader('jti');
+            $revoked = DB::table('oauth_access_tokens')->where('id', '=', $id)->update(['revoked' => 1]);
+            $this->guard()->logout();
+        }
+        Auth::logout();
+        return Response(['code' => 200, 'message' => 'You are successfully logged out'], 200);
+    }
 }
