@@ -21,10 +21,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('posts/create', 'PostsController@create')->name('posts.create');
 Route::middleware('api', 'auth:api')->post('posts/store', 'PostsController@store')->name('posts.store');
 Route::middleware('api', 'auth:api')->get('posts', 'PostsController@index')->name('posts.index');
-Route::get('posts/{id}', 'PostsController@show')->name('posts.show');
-Route::get('posts/approve/{id}', 'PostsController@approve')->name('posts.update');
-Route::get('posts/disapprove/{id}', 'PostsController@disapprove')->name('posts.disapprove');
-Route::get('posts/delete/{id}', 'PostsController@destroy')->name('posts.delete');
+Route::middleware('api', 'auth:api')->get('posts/{id}', 'PostsController@show')->name('posts.show');
+Route::middleware('api', 'auth:api')->get('posts/approve/{id}', 'PostsController@approve')->name('posts.update');
+Route::middleware('api', 'auth:api')->get('posts/disapprove/{id}', 'PostsController@disapprove')->name('posts.disapprove');
+Route::middleware('api', 'auth:api')->get('posts/delete/{id}', 'PostsController@destroy')->name('posts.delete');
 
 
 Route::get('articles/create', 'ArticleController@create')->name('posts.create');
@@ -40,5 +40,6 @@ Route::post('/login','APi\PassportAuthController@login');
 Route::middleware('api', 'auth:api')->get('/users','APi\PassportAuthController@index');
 Route::get('/users/activate/{id}','APi\PassportAuthController@activate');
 
-
+//-------------------Commentaires
+Route::middleware('api', 'auth:api')->post('comment', 'CommentController@store');
 

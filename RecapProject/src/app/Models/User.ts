@@ -7,5 +7,7 @@ export class User {
     role: string;
     status:string;
     token?: string;
+    password_confirmation:string;
+    image:File
 }
 

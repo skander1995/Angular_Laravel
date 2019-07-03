@@ -18,7 +18,7 @@ class PostsController extends Controller
     public function index()
     {
         //fetch all posts
-       $posts= Post::all(); 
+       $posts= Post::get(); 
        //$posts= Post::OrderBy('title','desc')->get();
        //$posts= Post::OrderBy('title','desc')->take(1)->get(); 
       // $posts= Post::OrderBy('title','desc')->paginate(1); 
@@ -56,13 +56,13 @@ class PostsController extends Controller
         $post= new Post();
         $post->title= $request->input('title');
         $post->body= $request->input('body');
-        
+            if ($request->file('file'));
+        $post->file=$request->file('file')->store('file','public');
         $user= $request->user();
+        
         $user->posts()->save($post);
-        
 
-        
-        
+    
        // $post->save();
              //return redirect('/posts');
     return response()->json($post, 200);
@@ -77,10 +77,12 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
-    {       
+    {    
         $post=Post::find($id);
+        //$post=Post::with('comments.user')->with('user')->find($id);
+
         //return view('posts.show')->with('post',$post);
-        return response()->json($post, 200);
+        return response()->json($post,200);
     }
 
 

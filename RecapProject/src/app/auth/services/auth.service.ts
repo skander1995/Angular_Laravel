@@ -1,6 +1,6 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { of, Observable, BehaviorSubject } from 'rxjs';
+import { of, BehaviorSubject, Observable } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
 import { Tokens } from '../models/tokens';
 import { User } from 'src/app/Models/User';
@@ -117,5 +117,11 @@ export class AuthService {
   toggle() {
     console.log("emmiting");
     this.change.emit(this.currentUser$);
+  }
+
+  public register(user:FormData) :Observable<User>
+  {
+
+    return this.http.post<User>('/api/register',user);
   }
 }

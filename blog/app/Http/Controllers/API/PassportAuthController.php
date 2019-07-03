@@ -19,10 +19,18 @@ class PassportAuthController extends Controller
         $validatedData= $request->validate([
             'name'=>'required|max:55',
             'email'=>'email|required|unique:users',
-            'password'=>'required|confirmed'
+            'password'=>'required|confirmed',
+            'image'=>'required'
         ]);
-        $validatedData['password']= bcrypt($request->password);
-        $user= User::create($validatedData);
+        $user=new User();
+        $user->name=$request->input('name');
+        $user->email=$request->input('email');
+        $user->password=bcrypt($request->input('password'));
+        $user->image=$request->file('image')->store('user','public');
+
+       // $validatedData['password']= bcrypt($request->password);
+        $user->save();
+        //$user= User::create($validatedData);
         $accessToken = $user->createToken('authToken')->accessToken;
         return  response(['user'=>$user,'access_token'=>$accessToken]);
     }

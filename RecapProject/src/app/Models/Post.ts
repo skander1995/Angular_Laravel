@@ -6,6 +6,7 @@ export class Post {
         id : number ;
         created_at:string;
         updated_at:string;
-    
+        file: string;        
+       
    
 }

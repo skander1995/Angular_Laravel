@@ -8,15 +8,20 @@ import { CreatePostComponent } from './post/Create_posts/create-post.component';
 import { ArticlesComponent } from './articles/articles/articles.component';
 import { CreateArticleComponent } from './articles/create-article/create-article.component';
 import { UserCComponent } from './user/user-c/user-c.component';
+import { RegisterComponent } from './user/register/register.component';
+import { ShowComponent } from './post/show/show.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   
   { path: 'posts', component: PostComponent,canActivate: [AuthGuard] },
   { path: 'posts/create', component: CreatePostComponent ,canActivate: [AuthGuard]},
+  { path: 'posts/:id', component: ShowComponent,canActivate: [AuthGuard] },
+  { path: 'posts/delete/:id', component: PostComponent ,canActivate: [AuthGuard]},
   { path: 'articles', component: ArticlesComponent ,canActivate: [AuthGuard]},
   { path: 'articles/create', component: CreateArticleComponent ,canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'users', component: UserCComponent ,canActivate: [AuthGuard]},
 ];
 

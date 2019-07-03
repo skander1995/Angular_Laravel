@@ -11,13 +11,22 @@ import { Router } from '@angular/router';
 })
 export class MainNavComponent implements OnInit {
 
-  constructor(private service:AuthService,private router:Router) {}
-
   public currentUser: Observable<User>;
+  public auth:Boolean =false;
   
+  constructor(private service:AuthService,private router:Router) {
+    this.currentUser =   JSON.parse(localStorage.getItem('currentUser'));
+    if (this.currentUser)
+    {
+      this.auth=!this.auth;
+    }
+  }
+
   ngOnInit() {  
-    this.currentUser=this.service.currentUser$;
+    //this.currentUser=this.service.currentUser$;
+    
     this.service.change.subscribe(user => {
+      this.auth=!this.auth;
       console.log("receiving");
       this.currentUser = user;
     });

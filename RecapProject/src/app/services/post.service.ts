@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Post } from '../Models/Post';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { UserService } from './user.service';
 import { AuthService } from '../auth/services/auth.service';
 
 
@@ -12,12 +10,13 @@ import { AuthService } from '../auth/services/auth.service';
   providedIn: 'root'
 })
 export class PostService {
-
+posts:Post[];
+post:Post;
   constructor(private http : HttpClient,private userservice:AuthService) { }
   //--with auth
   getposts():Observable<Post[]>{
     var url="/api/posts" ;
-   // console.log(url)
+   
     let headers = new HttpHeaders();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -30,30 +29,78 @@ export class PostService {
     return this.http.get<Post[]>(url,httpOptions);
     ;
   }
+  getOnePost(id:string):Observable<Post>{
+    var url="/api/posts/"+id ;
+   
+    let headers = new HttpHeaders();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': 'Bearer '+ this.userservice.getJwtToken()
+      })
+    };
+    //console.log(this.userservice.getJwtToken());
+    return this.http.get<Post>(url,httpOptions);
+  }
 
-  addPost(title:string,body:string,id:string): Observable<Post> {
-    //console.log(post);
+  addPost(post:FormData): Observable<Post> {
+   // console.log(post.title+"  "+post.body+"  "+post.file)
     var url="/api/posts/store";
-    return this.http.post<Post>(url,{"title": title,"body":body,"id":id});
-    //return this.http.post<Post>("http://localhost:8000/api/posts/create", post);
+
+    let headers = new HttpHeaders();
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        
+        'Authorization': 'Bearer '+ this.userservice.getJwtToken()
+      }),
+     
+    };
+    
+    return this.http.post<Post>(url,post,httpOptions);
+    
 }
 
 deleteposts(id:number):Observable<{}>{
   var url="/api/posts/delete/"+id ;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      //'Content-Type':  'multipart/form-data;boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL',
+      'Authorization': 'Bearer '+ this.userservice.getJwtToken()
+    }),
+   
+  };
   console.log(url)
-  return this.http.delete(url);
+  return this.http.get(url,httpOptions);
 }
 
 approveposts(id:number){
   var url="/api/posts/approve/"+id ;
+  let headers = new HttpHeaders();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': 'Bearer '+ this.userservice.getJwtToken()
+      })
+    };
   console.log(url)
-  return this.http.get(url);
+  return this.http.get(url,httpOptions);
 }
 
 disapproveposts(id:number){
   var url="/api/posts/disapprove/"+id ;
+  let headers = new HttpHeaders();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': 'Bearer '+ this.userservice.getJwtToken()
+      })
+    };
   console.log(url)
-  return this.http.get(url);
+  return this.http.get(url,httpOptions);
 }
 }
 
